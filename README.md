@@ -1,26 +1,39 @@
-# STACK-USING-LL
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
 class Stack:
     def __init__(self):
-        self.stack = []
+        self.head = None
 
-    def push(self, element):
-        self.stack.append(element)
-        print(f"Element {element} pushed onto the stack.")
+    def is_empty(self):
+        return self.head is None
+
+    def push(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+        print(f"Element {data} pushed onto the stack.")
 
     def pop(self):
-        if not self.stack:
+        if self.is_empty():
             print("Stack is empty! No element to pop.")
-        else:
-            popped_element = self.stack.pop()
-            print(f"Element {popped_element} popped from the stack.")
+            return None
+        popped_node = self.head
+        self.head = self.head.next
+        print(f"Element {popped_node.data} popped from the stack.")
+        return popped_node.data
 
     def display(self):
-        if not self.stack:
+        if self.is_empty():
             print("Stack is empty!")
-        else:
-            print("Stack elements from top to bottom:")
-            for element in reversed(self.stack):
-                print(element)
+            return
+        current = self.head
+        print("Stack elements from top to bottom:")
+        while current:
+            print(current.data)
+            current = current.next
 
 def main():
     stack = Stack()
@@ -33,8 +46,8 @@ def main():
         choice = input("Enter your choice (1/2/3/4): ")
 
         if choice == '1':
-            element = input("Enter the element to push: ")
-            stack.push(element)
+            data = input("Enter the element to push: ")
+            stack.push(data)
         elif choice == '2':
             stack.pop()
         elif choice == '3':
@@ -44,5 +57,6 @@ def main():
             break
         else:
             print("Invalid choice! Please enter 1, 2, 3, or 4.")
+main()
 
-    main()
+
